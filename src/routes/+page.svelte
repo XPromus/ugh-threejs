@@ -1,14 +1,13 @@
 <script lang="ts">
     import UserInterface from "../components/UserInterface.svelte";
-import { createScene } from "../graphics/defaultScene";
+    import { createScene } from "../graphics/defaultScene";
     import { onMount } from "svelte";
 
     let el: HTMLCanvasElement;
 
     onMount(() => {
         createScene(el);
-    })
-
+    });
 </script>
 
 <div class="w-screen h-screen">
