@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { createScene } from "../graphics/defaultScene";
+    import UserInterface from "../components/UserInterface.svelte";
+import { createScene } from "../graphics/defaultScene";
     import { onMount } from "svelte";
 
     let el: HTMLCanvasElement;
@@ -12,7 +13,7 @@
 
 <div class="w-screen h-screen">
     <canvas class="z-0" bind:this={el} />
-    <div class="w-full h-full z-50 text-white top-0 left-0 absolute">
-        Hello
+    <div class="w-full h-full z-50 top-0 left-0 absolute">
+        <UserInterface />
     </div>
 </div>
