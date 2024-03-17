@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { loadFbxModel } from "../graphics/fbxLoader";
-    import { sceneStore } from "../data/threeStore";
+    import { loadFbxModel } from "$lib/graphics/fbxLoader";
+    import { sceneStore } from "$lib/data/threeStore";
 
     let inputValue: string = "";
 

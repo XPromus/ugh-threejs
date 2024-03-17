@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { sceneStore } from "../data/threeStore";
+import { sceneStore } from "$lib/data/threeStore";
 import { loadFbxModel } from "./fbxLoader";
 import { loadGltfModel } from "./loader/gltfLoader";
 

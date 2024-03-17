@@ -1,6 +1,6 @@
 <script lang="ts">
-    import UserInterface from "../components/UserInterface.svelte";
-    import { createScene } from "../graphics/defaultScene";
+    import UserInterface from "$lib/components/UserInterface.svelte";
+    import { createScene } from "$lib/graphics/defaultScene";
     import { onMount } from "svelte";
 
     let el: HTMLCanvasElement;
