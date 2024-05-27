@@ -1,40 +1,41 @@
 import * as THREE from "three";
 import { sceneStore } from "$lib/data/threeStore";
-import { loadFbxModel } from "./fbxLoader";
-import { loadGltfModel } from "./loader/gltfLoader";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
+import { cameraNear } from "three/examples/jsm/nodes/Nodes.js";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 let renderer: THREE.WebGLRenderer;
 
-camera.position.z = 5;
+camera.position.set(3.8, 8.4, 19.9);
+camera.lookAt(new THREE.Vector3(2, 13, -4));
 
-const createLine = (): THREE.Line => {
-    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
-    const points = [];
+const axesHelper = new THREE.AxesHelper();
+scene.add(axesHelper);
 
-    points.push(new THREE.Vector3(-10, 0, 0));
-    points.push(new THREE.Vector3(0, 10, 0));
-    points.push(new THREE.Vector3(10, 0, 0));
-    
-    const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.Line(lineGeometry, lineMaterial);
-    scene.add(line);
-    return line;
-}
+let controls: OrbitControls;
 
-const createCube = (): THREE.Mesh => {
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const geometry = new THREE.BoxGeometry();
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-    return cube;
-}
+const light = new THREE.AmbientLight(0xff0000, 1);
+scene.add(light);
 
-const animate = (cube: THREE.Mesh) => {
-    requestAnimationFrame(() => animate(cube));
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+const basePlate = new THREE.Mesh(
+    new THREE.CylinderGeometry(10, 10, 1, 50, 50),
+    new THREE.MeshBasicMaterial({ color: 0x258700 }),
+);
+basePlate.position.y -= 0.5;
+scene.add(basePlate);
+
+const earthPlate = new THREE.Mesh(
+    new THREE.CylinderGeometry(10, 10, 5, 50, 50),
+    new THREE.MeshBasicMaterial({ color: 0x644200 }),
+);
+earthPlate.position.y -= 3.5;
+scene.add(earthPlate);
+
+const animate = () => {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer!.render(scene, camera);
 }
 
 const resize = () => {
@@ -43,26 +44,12 @@ const resize = () => {
     camera.updateProjectionMatrix();
 }
 
-const createLight = () => {
-    const light = new THREE.PointLight(0xffffff, 50);
-    light.position.set(0.8, 1.4, 1.0);
-    scene.add(light);
-
-    const ambientLight = new THREE.AmbientLight();
-    scene.add(ambientLight);
-}
-
 export const createScene = (el: HTMLCanvasElement) => {
     sceneStore.set(scene);
-    renderer = new THREE.WebGLRenderer({ antialias: true, canvas: el })
-    //createLight();
-    const cube = createCube();
-    //const line = createLine();
-    animate(cube);
+    renderer = new THREE.WebGLRenderer({ antialias: true, canvas: el });
+    controls = new OrbitControls(camera, renderer!.domElement);
 
-    //loadFbxModel("./haus.fbx", scene);
-    //loadGltfModel("src\\lib\\assets\\haus.glb", scene)
-    renderer!.render(scene, camera);
+    animate();
     resize();
 }
 

@@ -10,9 +10,11 @@
     });
 </script>
 
+<canvas class="z-0" bind:this={el} />
+
 <div class="w-screen h-screen">
-    <canvas class="z-0" bind:this={el} />
-    <div class="w-full h-full z-50 top-0 left-0 absolute">
+    
+    <div class="w-full h-fit z-50 top-0 left-0 absolute">
         <UserInterface />
     </div>
 </div>
