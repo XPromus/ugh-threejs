@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { loadFbxModel } from "$lib/graphics/fbxLoader";
+    import { loadFbxHouse, loadFbxOutside } from "$lib/graphics/fbxLoader";
     import { sceneStore } from "$lib/data/threeStore";
 
     let inputValue: string = "";
 
     const loadModelButtonClicked = () => {
-        loadFbxModel(inputValue, $sceneStore);
+        loadFbxHouse($sceneStore);
+        loadFbxOutside($sceneStore);
     }
 </script>
 

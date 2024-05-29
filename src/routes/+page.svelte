@@ -12,7 +12,7 @@
 
 <canvas class="z-0" bind:this={el} />
 
-<div class="w-screen h-screen">
+<div class="w-screen h-screen overflow-hidden">
     
     <div class="w-full h-fit z-50 top-0 left-0 absolute">
         <UserInterface />

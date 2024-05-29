@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import { sceneStore } from "$lib/data/threeStore";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
-import { cameraNear } from "three/examples/jsm/nodes/Nodes.js";
+
+import { VRButton } from "three/addons/webxr/VRButton.js";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -15,22 +16,8 @@ scene.add(axesHelper);
 
 let controls: OrbitControls;
 
-const light = new THREE.AmbientLight(0xff0000, 1);
+const light = new THREE.AmbientLight(0xffffff, 1);
 scene.add(light);
-
-const basePlate = new THREE.Mesh(
-    new THREE.CylinderGeometry(10, 10, 1, 50, 50),
-    new THREE.MeshBasicMaterial({ color: 0x258700 }),
-);
-basePlate.position.y -= 0.5;
-scene.add(basePlate);
-
-const earthPlate = new THREE.Mesh(
-    new THREE.CylinderGeometry(10, 10, 5, 50, 50),
-    new THREE.MeshBasicMaterial({ color: 0x644200 }),
-);
-earthPlate.position.y -= 3.5;
-scene.add(earthPlate);
 
 const animate = () => {
     requestAnimationFrame(animate);
@@ -49,8 +36,16 @@ export const createScene = (el: HTMLCanvasElement) => {
     renderer = new THREE.WebGLRenderer({ antialias: true, canvas: el });
     controls = new OrbitControls(camera, renderer!.domElement);
 
+    renderer.xr.enabled = true;
+    document.body.appendChild(VRButton.createButton(renderer!));
+
+    renderer.setAnimationLoop(() => {
+        renderer.render(scene, camera);
+    });
+
     animate();
     resize();
 }
+
 
 window.addEventListener("resize", resize);
