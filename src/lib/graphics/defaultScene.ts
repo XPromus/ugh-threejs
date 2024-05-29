@@ -3,6 +3,7 @@ import { sceneStore } from "$lib/data/threeStore";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 import { VRButton } from "three/addons/webxr/VRButton.js";
+import { loadFbxHouse, loadFbxOutside } from "./fbxLoader";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -18,6 +19,9 @@ let controls: OrbitControls;
 
 const light = new THREE.AmbientLight(0xffffff, 1);
 scene.add(light);
+
+loadFbxHouse(scene);
+loadFbxOutside(scene);
 
 const animate = () => {
     requestAnimationFrame(animate);

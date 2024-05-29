@@ -7,7 +7,7 @@ export const loadFbxHouse = (scene: Scene) => {
     const fbxLoader = new FBXLoader();
     console.log("Laden")
     fbxLoader.load(
-        "src\\lib\\assets\\haus.fbx",
+        "src\\lib\\assets\\01_Hutberg-Haus_JF_AC27_02.05.2024.fbx",
         (object) => {
             console.log("Objekt geladen.");
             object.scale.set(1, 1, 1);
