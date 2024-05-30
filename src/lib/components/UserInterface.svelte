@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { loadFbxHouse, loadFbxOutside } from "$lib/graphics/fbxLoader";
+    import { loadFbxHouse, loadFbxOutside } from "$lib/graphics/loader/fbxLoader";
     import { sceneStore } from "$lib/data/threeStore";
 
     let inputValue: string = "";
