@@ -1,4 +1,8 @@
-# create-svelte
+# Umgebindehaus ThreeJS
+
+## Fragen an Reitmann
+1. Möglichkeiten für stereoskopische Side by Side 360° Videos um VR zu ermöglichen
+2. Sicherheit für 3D Modelle in der Anwendung. Kann man sie auslesen und kopieren?
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
