@@ -3,7 +3,7 @@ import { sceneStore } from "$lib/data/threeStore";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 import { VRButton } from "three/addons/webxr/VRButton.js";
-import { loadFbxHouse, loadFbxOutside } from "./loader/fbxLoader";
+import { loadFbxHouse, loadGenericFbxByPath } from "./loader/fbxLoader";
 import { createSkybox } from "./skybox";
 import { createDirectionLight, createHemiLight } from "./lights";
 
@@ -22,8 +22,9 @@ let controls: OrbitControls;
 createHemiLight(scene);
 createDirectionLight(scene);
 
-loadFbxHouse(scene);
-loadFbxOutside(scene);
+loadGenericFbxByPath("src\\lib\\assets\\models\\Außenbereich.fbx", scene);
+loadFbxHouse("src\\lib\\assets\\models\\Hutberg-Haus.fbx", scene);
+
 createSkybox(scene);
 
 const animate = () => {

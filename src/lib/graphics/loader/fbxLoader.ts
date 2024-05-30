@@ -1,13 +1,31 @@
 import { houseChildrenNameStore } from "$lib/data/houseStore";
 import { get } from "svelte/store";
 import type { Scene } from "three";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+import * as THREE from "three";
+import { FBXLoader } from "three/examples/jsm/Addons.js";
 
-export const loadFbxHouse = (scene: Scene) => {
+export const loadGenericFbxByPath = (path: string, scene: Scene) => {
     const fbxLoader = new FBXLoader();
-    console.log("Laden")
     fbxLoader.load(
-        "src\\lib\\assets\\models\\01_Hutberg-Haus_JF_AC27_02.05.2024.fbx",
+        path,
+        (object) => {
+            object.scale.set(1, 1, 1);
+            object.position.set(0, 0, -5);
+            scene.add(object);
+        },
+        (xhr) => {
+            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+        },
+        (error) => {
+            console.log(error);
+        }
+    )
+}
+
+export const loadFbxHouse = (path: string, scene: Scene) => {
+    const fbxLoader = new FBXLoader();
+    fbxLoader.load(
+        path,
         (object) => {
             console.log("Objekt geladen.");
             object.scale.set(1, 1, 1);
@@ -20,26 +38,6 @@ export const loadFbxHouse = (scene: Scene) => {
                 houseChildrenNameStore.set(newArray);
             }
 
-            scene.add(object);
-        },
-        (xhr) => {
-            console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-        },
-        (error) => {
-            console.log(error)
-        }
-    );
-}
-
-export const loadFbxOutside = (scene: Scene) => {
-    const fbxLoader = new FBXLoader();
-    console.log("Laden")
-    fbxLoader.load(
-        "src\\lib\\assets\\models\\Außenbereich_23.05.2024.fbx",
-        (object) => {
-            console.log("Objekt geladen.");
-            object.scale.set(1, 1, 1);
-            object.position.set(0, 0, -5);
             scene.add(object);
         },
         (xhr) => {

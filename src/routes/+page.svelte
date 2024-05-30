@@ -26,7 +26,6 @@
                     Show Parts
                 </button>
             {/if}
-            
         </div>
         {#if showParts}
             <UserInterface />
