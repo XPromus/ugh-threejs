@@ -11,6 +11,15 @@ export const loadGenericFbxByPath = (path: string, scene: Scene) => {
         (object) => {
             object.scale.set(1, 1, 1);
             object.position.set(0, 0, -5);
+
+            for (let i = 0; i < object.children.length; i++) {
+                const child = object.children[i];
+                if (child instanceof THREE.Mesh) {
+                    const material: THREE.Mesh = child.material;
+                    console.log("Material: " + material.name);
+                }
+            }
+
             scene.add(object);
         },
         (xhr) => {
