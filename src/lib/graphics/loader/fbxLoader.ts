@@ -13,11 +13,11 @@ export const loadGenericFbxByPath = (path: string, scene: Scene) => {
             object.position.set(0, 0, -5);
 
             for (let i = 0; i < object.children.length; i++) {
-                const child = object.children[i];
-                if (child instanceof THREE.Mesh) {
-                    const material: THREE.Mesh = child.material;
-                    console.log("Material: " + material.name);
-                }
+                const child = object.children[i] as THREE.Mesh;
+                const material: THREE.Material[] = getMaterialAsArray(child.material);
+                material.forEach((mat) => {
+                    console.log("Material found: ", mat.name);
+                });
             }
 
             scene.add(object);
@@ -56,4 +56,16 @@ export const loadFbxHouse = (path: string, scene: Scene) => {
             console.log(error)
         }
     );
+}
+
+const getMaterialAsArray = (mesh: THREE.Material | THREE.Material[]): THREE.Material[] => {
+    let returnArray: THREE.Material[] = Array();
+
+    if (mesh instanceof THREE.Material) {
+        returnArray.push(mesh);
+    } else {
+        returnArray = mesh
+    }
+
+    return returnArray;
 }
